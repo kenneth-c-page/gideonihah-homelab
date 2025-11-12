@@ -17,4 +17,4 @@ The intended projects are as follows:
 | Homelab Cooling                                 | Alpine         | RPi 5   | TBD                |
 | Router and Forwarding Bridge                    | RaspberryPi OS | RPi 4b  | TBD                |
 # Why the Name?
-As a latter-day saint of Jesus Christ, and a Christian, I've admired the stories of Gideon from the book of Judges and the Book of Mormon. Following a naming convention from the Book of Mormon civilizations (e.g., Nephihah, etc.), I thought it would be fun parodying these names with Gideon's, hence 'Gideonihah.'
+As a latter-day saint of Jesus Christ, and thus as a Christian, I've admired the stories of Gideon from the book of Judges and the Book of Mormon. Following a naming convention from the Book of Mormon civilizations (e.g., Nephihah, etc.), I thought it would be fun parodying these names with Gideon's, hence 'Gideonihah.'
