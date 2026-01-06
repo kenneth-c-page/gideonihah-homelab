@@ -13,7 +13,7 @@ The intended projects are as follows:
 | NextCloud                                       | TBD            | TBD     | TBD                |
 | Tailscale                                       | TBD            | TBD     | TBD                |
 | Headscale                                       | TBD            | TBD     | TBD                |
-| Unbounded Dockerized PiHole                     | Alpine         | RPi 5   | Docker, Unbound Packages |
+| [Unbound Dockerized PiHole](https://github.com/kenneth-c-page/gideonihah-homelab/tree/main/d.unboundDockerizedPiHole) | Alpine         | RPi 5   | Docker, Unbound Packages |
 | Automated Backups                               | Alpine         | RPi 5   | TBD                |
 | Homelab Cooling                                 | Alpine         | RPi 5   | TBD                |
 | Router and Forwarding Bridge                    | OpenWRT        | RPi 4b  | TBD                |
