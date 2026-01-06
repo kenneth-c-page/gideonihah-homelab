@@ -1,6 +1,13 @@
 Date Started: January 28, 2025
 # Description
+
 # Process
+## Alpine Linux
+## Docker
+## Unbound
+## PiHole
+## Unbound
 # Challenges
+
 Sys vs diskless
-Forgot keyboard - overlay; enable dhcp on ethernet, and maybe even wifi
+Forgot keyboard - overlay; enable dhcp on ethernet, and maybe even wifi, checking unbound status
