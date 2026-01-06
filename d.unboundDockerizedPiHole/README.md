@@ -27,9 +27,64 @@ tar -xfz /Path/To-The-Downloaded-Image/name-of-the-pi-image.tar -C /Volumes/SDCA
 
 From here, insert and use the SD card to boot the Raspberry Pi as normal.
 
+After booting the Pi, (preferably) run setup-alpine. The steps of note I followed included:
+- Setting up ethernet (`eth0`) to dhcp (especially useful if running headless and sharing internet over ethernet)
+- Setting up WiFi
+- Creating another user
+- Setting up ssh with sshd
+And finally, when you reach the point if it asks to run from the disk (usually `mmcblk0...` or the like:
+- Choose `yes`
+- Type in the disk's name (usually `mmcblk0p1`)
+- And select `sys` when you get to that option—this makes changes persistent and is very useful
+- Reboot when it finishes syncing the disk
+
 ## Package Installations and Configurations
+
+Regarding configurations to the above setup and services, I didn't change much. I wouldn't even allow ssh as root, and instead ssh in as the user you created and switch users to root after you've logged in.
+
+### doas
+
+Alpine recommends using `doas` instead of `sudo`, which is what I did. As root:
+```
+apk update
+apk add doas
+addgroup <Insert the name of the user you created here> wheel
+```
+
+To check that the user is now in `wheel`, run:
+```
+groups <Insert the name of the user you created here>
+```
+
+Then allow the wheel group to use `doas`:
+```
+echo 'permit persist :wheel' > /etc/doas.d/20-wheel.conf
+```
+
 ### Docker
+
+From the user that you created, run:
+```
+doas apk update
+doas apk add docker docker-cli-compose
+addgroup <Insert user name here> docker
+rc-update add docker boot # or default
+rc-service docker start
+```
+To check that docker is running:
+```
+service docker status # should show '*started'
+docker version
+```
+
 ### Unbound
+
+From the user that you created, run:
+```
+doas apk update
+doas apk add unbound
+```
+
 ## PiHole
 ## Unbound
 # Challenges
@@ -41,4 +96,5 @@ Forgot keyboard - overlay; enable dhcp on ethernet, and maybe even wifi, checkin
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - [Alpine Linux Foundation image downloads](https://alpinelinux.org/downloads/)
 - 
+
 
