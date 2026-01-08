@@ -160,9 +160,13 @@ google.com.		300	IN	A	142.251.108.139
 ;; MSG SIZE  rcvd: 135
 ```
 
-## Resources
+## Change Unbound Image
+From alpinelinux/unbound:latest to madnuttah/unbound:latest
+
+# Resources
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 - [Alpine Linux Foundation image downloads](https://alpinelinux.org/downloads/)
 - [Official Pi-Hole Docker Image](https://hub.docker.com/r/pihole/pihole)
 - [Travis Media's tutorial on how to do this](https://travis.media/blog/pihole-v6-unbound-docker-compose-raspberry-pi/)
 - [Official Pi-Hole Unbound `.conf` file](https://docs.pi-hole.net/guides/dns/unbound/)
+
