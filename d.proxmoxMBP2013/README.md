@@ -15,3 +15,11 @@ boot
 
 I set pihole
 make sure to use proxmox.name.local
+
+Edit
+/etc/systemd/logind.conf
+
+Change
+HandleLidSwitch to =ignore
+HandleLidSwitchExternalPower to =ignore
+HandleLidSwitchDocked to =ignore
