@@ -1,4 +1,4 @@
-Date Started: January 28, 2025
+Date Started: December 28, 2025
 # Summary
 
 Implements Pi-Hole v6 in a Docker container on a Raspberry Pi 5 Alpine Linux machine. Includes changes to support the Unbound package and Unbound functionality, and accessing the Pi-Hole from outside of your home network.
