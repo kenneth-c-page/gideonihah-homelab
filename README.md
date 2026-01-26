@@ -17,7 +17,7 @@ The intended projects are as follows:
 | Homelab Cooling                                 | Alpine         | RPi 5     | TBD                |
 | Router and Forwarding Bridge                    | OpenWRT        | RPi 4b    | TBD                |
 | System and Network Hardening                    | All Above      | All Above | All Above          |
-| Later: LLM, TOR Exit Node                       | ...            | ...       |                    |
+| Later: LLM, TOR Exit Node, JellyFin, Email, Password Manager,                       | ...            | ...       |                    |
 
 # Projected Sequence
 1) Qubes OS: SearXNG Instance, Headscale Server, Rustdesk Server
