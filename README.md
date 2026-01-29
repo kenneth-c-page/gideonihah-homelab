@@ -4,14 +4,14 @@ The intended projects are as follows:
 
 | Service                                         | OS             | Machine   | Other Technologies |
 |-------------------------------------------------|----------------|-----------|--------------------|
-| Virtual Network for Pentesting                  | TBD            | TBD       | TBD                |
+| Virtual Network for Pentesting (Wireguard in)   | TBD            | TBD       | TBD                |
 | Blog Website, Financial Tracking for Pentesting | TBD            | TBD       | TBD                |
 | RustDesk Instance                               | TBD            | TBD       | TBD                |
 | SearXNG Instance                                | TBD            | TBD       | TBD                |
 | SIEM                                            | TBD            | TBD       | TBD                |
 | NextCloud                                       | TBD            | TBD       | TBD                |
 | Tailscale                                       | N/A            | N/A       | N/A                |
-| Headscale                                       | TBD            | TBD       | TBD                |
+| Headscale (i.e., Wireguard)                     | TBD            | TBD       | TBD                |
 | [Unbound Dockerized PiHole](https://github.com/kenneth-c-page/gideonihah-homelab/tree/main/d.unboundDockerizedPiHole) | Alpine         | RPi 5   | Docker, Unbound Packages |
 | Automated Backups                               | Alpine         | RPi 5     | TBD                |
 | Homelab Cooling                                 | Alpine         | RPi 5     | TBD                |
