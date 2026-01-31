@@ -23,3 +23,7 @@ Change
 HandleLidSwitch to =ignore
 HandleLidSwitchExternalPower to =ignore
 HandleLidSwitchDocked to =ignore
+
+apt install dkms build-essential linux-headers-generic  # build-essential often pulls generic tools
+apt install wireless-tools iw wpasupplicant
+apt install broadcom-sta-dkms
