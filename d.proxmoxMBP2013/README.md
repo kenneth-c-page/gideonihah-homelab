@@ -38,3 +38,8 @@ Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpgSave and exit.
 If the keyring file is missing (rare, but check with ls /usr/share/keyrings/proxmox*):textwget https://enterprise.proxmox.com/debian/proxmox-release-trixie.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-trixie.gpg(Or use the no-sub key if needed; the above usually works.)
 
 Disable enterprise repo if it's causing conflicts (common default install issue):textnano /etc/apt/sources.list.d/pve-enterprise.sourcesComment out the whole block by adding # to each line, or add Enabled: no under the existing entry.
+
+Install the headers for your kernel:
+Since you're on 6.17.2-1-pve:textapt install proxmox-headers-$(uname -r)
+Or for future kernel updates to keep headers in sync:textapt install proxmox-default-headers
+This should succeed now.
