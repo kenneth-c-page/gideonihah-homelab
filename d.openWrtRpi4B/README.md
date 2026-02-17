@@ -29,3 +29,5 @@ Under interfaces, create wan, dhcp client, eth0, after creating, firewall-fw zon
 Under br-lan, uncheck eth0, save and apply
 Unplug and connect to ethernet
 Test wifi
+
+enable 802.11w management frames as optional
