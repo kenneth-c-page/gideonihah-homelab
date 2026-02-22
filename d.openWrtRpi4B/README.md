@@ -31,3 +31,5 @@ Unplug and connect to ethernet
 Test wifi
 
 enable 802.11w management frames as optional
+
+install ethernet adapter - opkg update && opkg install kmod-usb-net-asix-ax88179 (for tp link ue306 v2.60)
