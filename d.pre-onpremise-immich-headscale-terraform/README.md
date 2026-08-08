@@ -25,3 +25,6 @@ sudo tailscale up --login-server http://98.80.43.12:8080
 copy command from browser
 
 no need sudo, didn't want to deal with it for now
+
+edit ssh rule to the same CIDR subnet that the /etc/headscale/config.yaml contains
+Had to update ~/.aws/config, credentials to handle both work and personal profiles
