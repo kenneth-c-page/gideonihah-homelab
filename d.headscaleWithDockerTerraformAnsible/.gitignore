@@ -1,3 +1,4 @@
+plans/
 .terraform/
 *.tfstate
 *.tfstate.*
@@ -5,4 +6,3 @@
 .terraform.lock.hcl
 *.pem
 *.retry
-plans/
