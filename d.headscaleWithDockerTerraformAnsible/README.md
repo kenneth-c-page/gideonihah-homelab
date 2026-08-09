@@ -1,6 +1,6 @@
 Date: 2026/08/08-2026/08/09
 
-# Overview
+# Introduction
 
 Lately, I've been wanting to branch out a bit more into different technologies and tools used in the industry. I've been itching to assemble my homelab from various pieces of hardware I've acquired, but being caught in the middle of moving houses has made that impractical. At the same time, we're starting to mature a bit more as an organization at the dev team I'm working at, and since our products are becoming more stable, we're targeting the infrastructure, bringing more DevOps into the mix. Between these two, I wanted to gain some experience with Terraform and Ansible. Below is both a write-up/kind-of blog about how I spun up a Headscale server multiple times as I iteratively improved on how I provisioned the infrastructure hosting the server.
 
@@ -13,7 +13,17 @@ The flow will mostly follow sequentially. But, because I want this to be a write
 - Headscale
 - Docker
 
-# AWS & EC2
+## Overview
+- [AWS and EC2](#aws-and-ec2)
+- [Terraform](#terraform)
+- [Docker and Headscale](#docker-and-headscale)
+- [Ansible](#ansible)
+  - [Testing](#testing)
+- [Tailscale](#tailscale)
+- [Immich](#immich)
+- [Lessons Learned](#lessons-learned)
+
+# AWS and EC2
 
 1. Create an AWS account. It will want you to create non-root users. For as long as this stays a personal project, that is up to your discretion.
 2. At the time of writing this, there was a chance to walk through various onboarding tasks to earn more credits. Do that—it will walk through how to set up an EC2 instance, but on the EC2 dashboard, if you click `Launch Instance` it will walk you through the same wizard:
@@ -163,3 +173,7 @@ Congratulations! You now have a Headscale server running that you can use to man
 # Immich?
 
 Initially I wanted to mount an S3 bucket to the EC2 instance and host an Immich server. Hence why I used docker to host the Headscale server—I planned on migrating both to my own hardware after I move. However, due to time constraints, Immich may have to wait for later.
+
+# Lessons Learned
+1. The largest issue I ran into was using snap to install Tailscale. Running `tailscale status` and `headscale nodes list` repeatedly showed that each node was able to connect to each other and that they were online. However, ping and SSH would not reach from my laptop to the EC2 instance over the tailnet's interface. After looking into various logs, it turned out to be a weird configuration from Snap affecting how `tailscaled` would establish a connection to a peer with WireGuard—Snap's sandboxing limited Tailscale's ability to access needed files to permit SSH between nodes (a smiliar issue is documented [here](https://github.com/canonical/tailscale-snap/issues/77)). Ultimately, removing it and using a more stable package from apt ended up establishing a more reliable connection.
+2. The `tailscale up --login-server` command caches the URLs that you provide, and can interfere with registration. Simply running `tailscale down` and then rerunning `tailscale up` with the correct login server URL and the `--reset` flag clears the cache and ensures that the Tailscale client registers with the server.
