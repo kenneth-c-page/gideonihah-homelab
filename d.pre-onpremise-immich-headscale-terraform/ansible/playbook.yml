@@ -1,0 +1,90 @@
+- name: Immich-Headscale Init
+  hosts: myhosts
+  remote_user: ubuntu
+
+  tasks:
+    - name: Install Prerequisites
+      apt:
+        name: 
+          - ca-certificates
+          - curl
+          - gnupg
+          - sqlite3
+        state: present
+        update_cache: true
+    
+    - name: Install Dockerd
+      apt:
+        name: docker
+        state: present
+        update_cache: true
+
+    - name: User to Docker Group
+      ansible.builtin.user:
+        name: ubuntu
+        groups: docker
+        append: true
+
+    - name: Ensure Docker Running and Enabled
+      ansible.builtin.systemd_service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Tailscale GPG Key
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
+        dest: /usr/share/keyrings/tailscale-archive-keyring.gpg
+        mode: '0664'
+
+    - name: Tailscale Repo
+      ansible.builtin.get_url:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
+        dest: /etc/apt/sources.list.d/tailscale.list
+        mode: '0664'
+
+    - name: Install Tailscale
+      apt:
+        name: tailscale
+        state: present
+        update_cache: true
+
+    - name: Ensure tailscaled Running and Enabled
+      ansible.builtin.systemd_service:
+        name: tailscaled
+        state: started
+        enabled: true
+
+    - name: Create Headscale directories
+      ansible.builtin.file:
+        path: "/home/ubuntu/headscale/{{ item }}"
+        owner: ubuntu
+        group: ubuntu
+        state: directory
+        mode: '0755'
+      loop:
+        - lib
+        - config
+
+    - name: Copy Headscale Config
+      ansible.builtin.copy:
+        src: d.files/config.yaml
+        dest: /home/ubuntu/headscale/config/config.yaml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+        backup: yes
+
+    - name: Copy docker-compose
+      ansible.builtin.copy:
+        src: d.files/docker-compose.yml
+        dest: /home/ubuntu/headscale/docker-compose.yml
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+        backup: yes
+
+    - name: Bring Up Headscale Container
+      community.docker.docker_compose_v2:
+        project_src: /home/ubuntu/headscale
+        state: present    

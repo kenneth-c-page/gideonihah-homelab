@@ -28,3 +28,30 @@ no need sudo, didn't want to deal with it for now
 
 edit ssh rule to the same CIDR subnet that the /etc/headscale/config.yaml contains
 Had to update ~/.aws/config, credentials to handle both work and personal profiles
+
+terraform import aws_eip.immich-headscale-via-terraform <existing-allocation-id>
+terraform import aws_instance.immich-headscale-via-terraform <existing-instance-id>
+aws ec2 describe-security-groups --profile personal --region us-east-1
+terraform import aws_security_group.immich-headscale <sg-id>
+
+aws ec2 describe-addresses --profile personal --region us-east-1
+
+terraform plan -out <name>
+terraform apply <name>
+
+try ssh-ing through the static ip address then the tailnet ip address
+
+for migration to onpremise hardware: https://ltan.me/post/2024/11/headscalemigrationfromcentos7toubuntu24/
+
+sudo snap install docker
+
+before shutting down tailscale, I added a vpc endpoint rule to terraform and quick created an endpoint in teh same subnet and security group to WebSSH
+
+APT NOT SNAP
+# Remove the snap version first
+sudo snap remove tailscale
+
+# Install via official apt repo
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+sudo apt update && sudo apt install tailscale
