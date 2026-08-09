@@ -142,7 +142,7 @@ Congratulations! You now have a Headscale server running that you can use to man
 > [!WARNING]
 > When I first went about this, I installed Tailscale via snap. This gave me tons of issues connecting to the EC2 instance that was running the Headscale server via SSH, so if this is what happened to you, it will probably be best to `sudo snap remove tailscale` and follow the instructions below`
 
-1. Install the official tailscale repo for apt:
+1. Install the official Tailscale repo for apt:
 
 `curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg`
 
