@@ -55,3 +55,8 @@ sudo snap remove tailscale
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 sudo apt update && sudo apt install tailscale
+
+docker in ansible
+ansible-playbook -i inventory.yml playbook.yml
+
+terraform destroy -target=aws_instance.ansible-test-instance -target=aws_eip.ansible-test

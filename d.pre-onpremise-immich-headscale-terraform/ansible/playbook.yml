@@ -1,6 +1,8 @@
 - name: Immich-Headscale Init
+  # hosts: testhosts
   hosts: myhosts
   remote_user: ubuntu
+  become: true
 
   tasks:
     - name: Install Prerequisites
@@ -13,11 +15,15 @@
         state: present
         update_cache: true
     
-    - name: Install Dockerd
+    - name: Install Docker engine
       apt:
-        name: docker
+        name: docker.io
         state: present
-        update_cache: true
+
+    - name: Install Docker Compose plugin
+      apt:
+        name: docker-compose-v2
+        state: present
 
     - name: User to Docker Group
       ansible.builtin.user:
