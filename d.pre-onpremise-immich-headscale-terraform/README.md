@@ -35,7 +35,9 @@ The flow will mostly follow sequentially. But, because I want this to be a write
 
 # Terraform
 
-1. Install Terraform
+Terraform is used for Infrastructure as Code to make managing cloud resources easier and duplicatable. While the scope of this project doesn't necessitate Terraform, it did make setting up a test instance for my Ansible playbook easier, and was really fun to learn how to use.
+
+1. Install Terraform: `homebrew tap hashicorp/tap && brew install hashicorp/tap/terraform`
 2. For the next few steps (initializing Terraform, etc.) [Hashicorp has a really helpful tutorial I used](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/aws-create). For this project, I ended up using the following to set up the EC2 instance, and as such, used these pages from Hashicorp to piece together how to create my `main.tf`, and later, my `test.tf` (feel free to look at mine, too, to see slight deviations in the application):
 > [!NOTE]
 > All the `.tf` files are compiled when you run `terraform plan`, which is why `test.tf` is more of a fragment—it's using the same `data` objects that `main.tf` references.
@@ -58,7 +60,7 @@ The flow will mostly follow sequentially. But, because I want this to be a write
 > [!TIP]
 > If you use the AWS CLI for multiple projects, such as for work, personal projects, or other contributions, you will need to edit the `~/.aws/config` and `~/.aws/credentials` files to include all of them (if you don't want to manually type them in each time). Make sure that the credentials do not include 'profile' like the config is supposed to.
 
-3. In order:
+3. For each AWS resource, you'll define an object as `data/resource "type" "identifer you choose"`. In order:
   - Define the provider (aws) and the region and profile (the credentials) you'll be using
   - Use the default (or otherwise specify another VPC by its id or other characteristics)
   - Define the subnet you'll use
@@ -102,9 +104,40 @@ Congratulations! You now have a Headscale server running that you can use to man
 
 # Ansible
 
+> [!NOTE]
+> Even though I just had to install `docker` and `tailscale` to run the Headscale server and connect to it, the prerequisites help maintain idempotence, since they may not be installed on your system. Similarly, `docker` is provided by community contributions to ansible, which is why there is the community annotation for the build task at the end, and the two install tasks.
+
+1. Install Ansible. I use Mac, so I just ran `homebrew install ansible`
+2. Build an inventory. While I preferred using the `.yml` format for the inventory, they recommend using `.ini`. I created both.
+3. Verify and ping the hosts in your inventory:
+  - `ansible-inventory -i inventory.yml --list`
+  - `ansible myhosts -m ping -i inventory.yml`
+4. As seen in the `inventory.yml` in `ansible`, you can specify the user and key so later executions can be run seamlessly.
+5. Create a playbook for whichever group of hosts you want. I have two groups - one for the original EC2 instance, and the other for a test group.
+6. Write a block for each of the actions (feel free to pull up the `playbook.yml` to follow along and to make sense of Ansible generally):
+
+  - [Creating a playbook](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html)
+  - [Install packages: ca-certificaates, curl, gnupg, and sqlite (for Headscale server and to curl the Tailscale repo and GPG key), docker.io (engine), docker-compose-v2 (compose plugin)](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html)
+  - [Download the Tailscale GPG key and repo](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html)
+  - [And the ubuntu user to the docker group](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html)
+  - [Start and enable Docker and tailscaled](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/systemd_service_module.html)
+  - [Create the directories for the Headscale server (`headscale`, `config`, and `lib`); give them the correct permissions](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html)
+  - [Copy the `config` and `docker-compose` files from this repository ](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html)
+  - [Install the community docker collection to run the docker build task](https://docs.ansible.com/ansible/latest/collections_guide/collections_installing.html)
+  - [Bring up the headscale container](https://docs.ansible.com/ansible/latest/collections/community/docker/docker_compose_v2_module.html)
+
+7. Before running, test by following the directions in `Testing` below.
+
 ## Testing
 
-## Tailscale
+1. To test, write another Terraform file similar to main, but this time just creating a new EC2 instance and EIP associated to the new EC2 instance's id (take a look at `test.tf`). Make sure they use different names than what the original instance and EIP use. I used the same key pair for convenience.
+2. I used the same command from earlier to find the new instance and its EIP: `aws ec2 describe-addresses --profile personal --region <your region>`.
+3. Add a host (and group of hosts that contains just this EC2 instance) in `inventory.yml`.
+4. Change `playbook.yml` to target this new group of hosts.
+5. Run with `ansible-playbook -i inventory.yml playbook.yml`. Everything should be marked `ok` or `changed` (something that wasn't present on the machine before). Run again to make sure that everything results in `ok` (no changes, and thus, idempotent).
+6. Take down the testing EC2 instance and EIP (to avoid unnecessary costs) with: `terraform destroy -target=aws_instance.<instance identifier you chose in test.tf> -target=aws_eip.<EIP identifier you chose in test.tf>`
+
+# Tailscale
 
 > [!WARNING]
 > When I first went about this, I installed Tailscale via snap. This gave me tons of issues connecting to the EC2 instance that was running the Headscale server via SSH, so if this is what happened to you, it will probably be best to `sudo snap remove tailscale` and follow the instructions below`
@@ -129,7 +162,4 @@ Congratulations! You now have a Headscale server running that you can use to man
 
 # Immich?
 
-docker in ansible
-ansible-playbook -i inventory.yml playbook.yml
-
-terraform destroy -target=aws_instance.ansible-test-instance -target=aws_eip.ansible-test
+Initially I wanted to mount an S3 bucket to the EC2 instance and host an Immich server. Hence why I used docker to host the Headscale server—I planned on migrating both to my own hardware after I move. However, due to time constraints, Immich may have to wait for later.
