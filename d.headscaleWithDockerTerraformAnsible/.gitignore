@@ -2,8 +2,7 @@
 *.tfstate
 *.tfstate.*
 *.tfplan
-tfplan
-initialPlan
 .terraform.lock.hcl
 *.pem
 *.retry
+plans/
