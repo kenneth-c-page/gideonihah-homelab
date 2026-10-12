@@ -25,5 +25,19 @@ The intended projects are as follows:
 3) Router and Forwarding Bridge
 4) SIEM, Cooling, Backups, Hardening
 
+Router bridge 
+VLAN and isolation; trunking
+Virtual network
+SearXNG
+Immich
+Headscale (maybe cloud)
+NextCloud -> file storage, not collab
+Vaultwarden, need passkey support
+Terraform, Nix, CICD
+
+Experimenting network
+
+Security Stack on both: back ups, log, dashboards, IPS
+
 # Why the Name?
 I am a Latter-day Saint of Jesus Christ, and thus, a Christian. I've admired the stories of Gideon from the book of Judges and the Book of Mormon. Following a naming convention from the Book of Mormon civilizations (e.g., Nephihah, etc.), I thought it would be fun parodying these names with Gideon's, hence 'Gideonihah.'
