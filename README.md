@@ -11,17 +11,20 @@ The intended projects are as follows:
 | Immich                                                                        | | |
 | VaultWarden                                                                   | | |
 | NextCloud                                                                     | | |
-| SimpleX Client                                                                | | |
-| SimpleX Bridge                                                                | | |
-| Web Server                                                                    | | |
 | Authentik                                                                     | | |
-| Headscale Server                                                              | | |
 | GitLab Server                                                                 | | |
 | Security Stack: backups, logs, alerts, FWs, IPS, IDS, EDR                     | | |
 | Declarative VMs via Terraform, Ansible, Nix OS, K8s, CICD                     | | |
 | Disposable Environments; flat network, VLAN pis, proxmox nodes, services, env | | |
-| RustDesk Server                                                               | After getting a Qubes Machine | |
-| TOR Exit Node                                                                 | | |
+
+| Postponed        | Reason                                                          |
+|------------------|-----------------------------------------------------------------|
+| RustDesk Server  | After getting a Qubes Machine                                   |
+| TOR Exit Node    | Needs more research                                             |
+| SimpleX Client   | Need to investigate bridging                                    |
+| SimpleX Bridge   |                                                                 |
+| Web Server       | Get above up and running, make authenticated finances dashboard |
+| Headscale Server | Tailscale sufficient for now                                    |
 
 # Why the Name?
 I am a Latter-day Saint of Jesus Christ, and thus, a Christian. I've admired the stories of Gideon from the book of Judges and the Book of Mormon. Following a naming convention from the Book of Mormon civilizations (e.g., Nephihah, etc.), I thought it would be fun parodying these names with Gideon's, hence 'Gideonihah.'
