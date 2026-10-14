@@ -41,3 +41,6 @@ Security Stack on both: back ups, log, dashboards, IPS
 
 # Why the Name?
 I am a Latter-day Saint of Jesus Christ, and thus, a Christian. I've admired the stories of Gideon from the book of Judges and the Book of Mormon. Following a naming convention from the Book of Mormon civilizations (e.g., Nephihah, etc.), I thought it would be fun parodying these names with Gideon's, hence 'Gideonihah.'
+
+# Future Reference
+[Mac mini Racks](https://www.printables.com/model/36855-mac-mini-rack/files#preview.file.xiuch)
