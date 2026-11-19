@@ -10,4 +10,5 @@ Welcome to my homelab documentation! The goal of this is to learn industry pract
 | PiHole | DietPi, Raspberry Pi 0 2W |
 | Switching | 2 Netgear Switches |
 | Proxmox | Various |
->[!TIP]
+
+>[!TIP] test
