@@ -11,4 +11,4 @@ Welcome to my homelab documentation! The goal of this is to learn industry pract
 | Switching | 2 Netgear Switches |
 | Proxmox | Various |
 
->[!info] test
+> [!tip] test
