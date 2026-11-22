@@ -1,0 +1,20 @@
+# update dietpi
+# set hostname
+# if pihole installed
+#   systemctl restart pihole-FTL && sleep 10
+#   rerun while dip pool.ntp.org doesn't work, this is after updates
+# else
+#   dietpi install pihole, unbound, tailscale
+#   pihole up
+#   pihole setpassword from ansible vault
+#   overwrite /etc/resolv.conf for nameserver 127.0.0.1; chattr +i
+#   set upstreams to     "127.0.0.1#5335"
+#   systemctl restart pihole-FTL && sleep 10
+#   rerun while dip pool.ntp.org doesn't work, this is after updates
+# set ntp to something else
+# local host tailscale generate authkey, oauth client credential, auth key write, add dns tag get client id and secret to authenticate
+# tailscale up --accept-dns=false --authkey=retrieve from previous step
+# tailscale api disable key expiry for this node
+# pihole tailscale bind only to interface tailscale0
+# additional lists, additional blocks
+# dns records
